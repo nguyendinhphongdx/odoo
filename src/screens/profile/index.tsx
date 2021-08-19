@@ -1,14 +1,15 @@
 import { Text, View } from "react-native"
 import React from "react";
+import ContainerScreen from "../../common/components/ContainerScreen";
 
 interface PropsScreens {
 
 }
 const ProfileScreen: React.FC<PropsScreens> = ({ children }) => {
     return (
-        <View>
+        <ContainerScreen>
                 <Text>ProfileScreen</Text>
-        </View>
+        </ContainerScreen>
     )
 }
 export default ProfileScreen;

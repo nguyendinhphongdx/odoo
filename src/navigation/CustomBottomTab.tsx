@@ -1,21 +1,60 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SvgXml } from 'react-native-svg';
-import { useSelector } from 'react-redux';
-import { Spacing } from '../theme';
-import { ScreenWidth } from '../theme/size';
+import {useEffect} from 'react';
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Constant from '../config/Constant';
+import {Spacing} from '../theme';
+import {ScreenWidth} from '../theme/size';
+const {width, height} = Dimensions.get('window');
 // import { Spacing } from '../theme';
 
 const CustomBottomTab = ({state, descriptors, navigation}: any) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-  var notifies = useSelector((state:any)=> state.Notify.notifies);
-  notifies = notifies.filter((item:any) => item.seen == 'false' ||item.seen == false  )
+  const [visible, setvible] = React.useState(true);
+  const [bottom, setBottom] = React.useState(() => new Animated.Value(0));
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
-
+  const aniBottom = bottom.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -70],
+  });
+  const AnimatedBottom = () => {
+    Animated.timing(bottom, {
+      toValue: visible ? 0 : 1,
+      duration: 400,
+      easing: Easing.ease,
+      useNativeDriver: false, // <-- neccessary
+    }).start(() => setvible(!visible));
+  };
+  
+  // hide tabar bottom with condition
+  const _state = state.routes[state.index].state;
+  if (_state) {
+    const _screenCurrent = _state.routeNames[_state.index];
+    if (_screenCurrent === Constant.SCREEN.CHAT) {
+      if(visible == false){
+        console.log('hide');
+        
+        AnimatedBottom();
+      }
+    } else {
+      if(visible == true){
+        console.log('open');
+        AnimatedBottom();
+      }
+    }
+  } 
+ 
   return (
-    <View style={styles.ctn}>
+    <Animated.View style={{...styles.ctn, bottom: aniBottom}}>
       {state.routes.map((route: any, index: any) => {
         const {options} = descriptors[route.key];
         const label =
@@ -38,47 +77,21 @@ const CustomBottomTab = ({state, descriptors, navigation}: any) => {
             navigation.navigate(route.name);
           }
         };
-        const tabBarBadge = () => {
-          const iconBadge = (
-            <View />
-            // <View style={styles.badge}>
-            //   <Text style={styles.txtBadge}></Text>
-            // </View>
-          );
-          switch (route.name) {
-            case 'Notification':
-              return iconBadge;
-            default:
-              break;
-          }
-        };
-
         return (
           <TouchableOpacity
             key={index}
             onPress={onPress}
             style={[styles.tabItem, isFocused ? styles.tabItemForcus : null]}>
             <View>
-              <SvgXml
-                xml={isFocused ? options.tabBarIconfocus : options.tabBarIcon}
-                height={24}
-                width={24}
-                style={{
-                  //   margin: Spacing[1],
-                  //   padding: Spacing[1],
-                  marginRight: 16,
-                }}
-              />
-               {options.title =='Notification' &&(
-               <Text style={{color:'white',position:'absolute',top:-10,left:10,fontSize:14}}>{notifies.length>999?'999+':notifies.length}</Text>
-              )}
+              {isFocused ? options.tabBarIconfocus : options.tabBarIcon}
             </View>
-            {tabBarBadge()}
             {isFocused ? (
               <Text
                 style={{
-                  color: isFocused ? '#FFA700' : '#BDBDBD',
+                  color: isFocused ? 'white' : 'black',
                   fontSize: 16,
+                  paddingRight: 5,
+                  marginLeft: 10,
                 }}>
                 {label}
               </Text>
@@ -86,7 +99,7 @@ const CustomBottomTab = ({state, descriptors, navigation}: any) => {
           </TouchableOpacity>
         );
       })}
-    </View>
+    </Animated.View>
   );
 };
 const styles = StyleSheet.create({
@@ -94,22 +107,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing[4],
-    backgroundColor: '#162235',
+    backgroundColor: '#4287f5',
     position: 'absolute',
-    // paddingBottom: metric.paddingBottomScreen,
     alignItems: 'center',
-    bottom: 10,
-    borderRadius: 20,
-    //   backgroundColor: 'red',
-    marginHorizontal: ScreenWidth * 0.03,
-    height: 55,
-    shadowColor: '#6C6CE5',
-    shadowRadius: 15,
-    //shadowOffset: {width: 4, height: 4},
-    shadowOpacity: 0.3,
-    width: ScreenWidth - ScreenWidth * 0.06,
-    borderColor: 'rgba(0, 111, 226, 0.39)',
-    borderWidth:3
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 70,
+    width: width,
   },
   tabItem: {
     alignItems: 'center',
@@ -117,10 +121,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   tabItemForcus: {
-    borderRadius: 20,
+    borderRadius: 15,
     paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: '#102733',
+    paddingVertical: 8,
+    backgroundColor: '#e6a73c',
   },
   badge: {
     height: 20,

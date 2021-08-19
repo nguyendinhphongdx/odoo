@@ -8,6 +8,7 @@ export default {
         MESSAGE:'MessageScreen',
         CHAT:'ChatScreen',
         SEARCH:'SearchScreen',
-        SPLASH:'FlashScreen'
+        SPLASH:'FlashScreen',
+        TABBUTTOM:'TabButtom'
     }
 }

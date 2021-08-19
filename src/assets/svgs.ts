@@ -1,25 +1,25 @@
-import SvgHome from './icon/bottom-tab/Home.svg';
-import SvgHomeForcus from './icon/bottom-tab/home-focus.svg';
-import SvgNoti from './icon/bottom-tab/Noti.svg';
-import SvgNotiFocus from './icon/bottom-tab/NotiActive.svg';
-import SvgSetting from './icon/bottom-tab/Setting.svg';
-import SvgSettingForcus from './icon/bottom-tab/setting-focus.svg';
-import SvgGoBack from './icon/bottom-tab/goBack.svg';
-import SvgNews from './icon/home/news.svg';
-import SvgBills from './icon/home/icon-bill.svg';
-import SvgEarth from './icon/home/earth.svg';
-import SvgEducate from './icon/home/icon-educate.svg';
-import SvgPhone from './icon/home/icon-phone.svg';
-import SvgReport from './icon/home/icon-bill.svg';
-import SvgWarning from './icon/home/metro-warning.svg';
-import SvgFAQ from './icon/home/icon-comment.svg';
-import SvgSearch from './icon/home/search.svg';
-import SvgPlus from './icon/home/plus.svg';
-import SvgEye from './icon/home/visibility_black_24dp.svg';
-import SvgEyeHide from './icon/home/visibility_off_black_24dp.svg';
-import SvgDirection from './icon/home/icon-direction.svg';
-import SvgDevices from './icon/home/icon-devices.svg';
-import SvgBook from './icon/home/icon-book.svg';
+const SvgHome = require('./icon/bottom-tab/Home.svg');
+const  SvgHomeForcus = require('./icon/bottom-tab/home-focus.svg');
+const SvgNoti = require( './icon/bottom-tab/Noti.svg');
+const SvgNotiFocus = require( './icon/bottom-tab/NotiActive.svg');
+const SvgSetting = require( './icon/bottom-tab/Setting.svg');
+const SvgSettingForcus = require( './icon/bottom-tab/setting-focus.svg');
+const SvgGoBack = require( './icon/bottom-tab/goBack.svg');
+const SvgNews = require( './icon/home/news.svg');
+const SvgBills = require( './icon/home/icon-bill.svg');
+const SvgEarth = require( './icon/home/earth.svg');
+const SvgEducate = require( './icon/home/icon-educate.svg');
+const SvgPhone = require( './icon/home/icon-phone.svg');
+const SvgReport = require( './icon/home/icon-bill.svg');
+const SvgWarning = require( './icon/home/metro-warning.svg');
+const SvgFAQ = require( './icon/home/icon-comment.svg');
+const SvgSearch = require( './icon/home/search.svg');
+const SvgPlus = require( './icon/home/plus.svg');
+const SvgEye = require( './icon/home/visibility_black_24dp.svg') as string;
+const SvgEyeHide = require( './icon/home/visibility_off_black_24dp.svg');
+const SvgDirection = require( './icon/home/icon-direction.svg');
+const SvgDevices = require( './icon/home/icon-devices.svg');
+const SvgBook = require( './icon/home/icon-book.svg');
 const svgs = {
   SvgHome,
   SvgHomeForcus,
