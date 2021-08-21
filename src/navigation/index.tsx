@@ -20,6 +20,7 @@ import RegisterScreen from '../screens/sign-up';
 import CustomBottomTab from './CustomBottomTab';
 import GettingStartedScreen from '../screens/gettingStarted/gettingStarted';
 import {HeaderTitle} from '@react-navigation/elements';
+import ProjectScreen from '../screens/home/ModuleScreens/projects';
 
 const Tab: any = createBottomTabNavigator();
 const Stack: any = createStackNavigator();
@@ -53,7 +54,7 @@ const BottomTab: React.FC<PropsBottom> = ({children}) => {
         options={{
           tabBarIcon: <Icon name={'comment'} size={25} color="white" />,
           tabBarIconfocus: <Icon name={'comment'} size={25} color="white" />,
-          title: 'Message'
+          title: 'Message',
         }}
       />
       <Tab.Screen
@@ -71,8 +72,17 @@ const BottomTab: React.FC<PropsBottom> = ({children}) => {
 
 const HomeStack: React.FC<{}> = ({children}) => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnalbe: true,
+        gestureDirection: 'horizontal',
+        cardStyle: {backgroundColor: 'transparent'},
+        cardOverlayEnabled: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}>
       <Stack.Screen name={Constant.SCREEN.HOMESCREEN} component={HomeScreen} />
+      <Stack.Screen name={Constant.SCREEN.PROJECT} component={ProjectScreen} />
     </Stack.Navigator>
   );
 };
@@ -106,14 +116,9 @@ const MessageStack: React.FC<{}> = ({children}) => {
       screenOptions={{
         headerShown: false,
         ...MyTransition,
-        tabBarVisible: false
       }}>
       <Stack.Screen name={Constant.SCREEN.MESSAGE} component={MessageScreen} />
-      <Stack.Screen
-        name={Constant.SCREEN.CHAT}
-        component={ChatScreen}
-       
-      />
+      <Stack.Screen name={Constant.SCREEN.CHAT} component={ChatScreen} />
     </Stack.Navigator>
   );
 };

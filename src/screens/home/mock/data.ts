@@ -1,0 +1,73 @@
+import { ImageSourcePropType } from "react-native";
+import { HomeStackLogo } from "../../../assets/logo";
+import Constant from "../../../config/Constant";
+export interface PropsItemModule {
+    id:number;
+    logo: ImageSourcePropType;
+    title:string;
+    priority?:number;
+    navigation?:string;
+}
+export const ListModule:Array<PropsItemModule> = [
+    {   
+        id:1,
+        logo:HomeStackLogo.Calander,
+        title:'Calander',
+        navigation:Constant.SCREEN.PROJECT
+    },
+    {   
+        id:2,
+        logo:HomeStackLogo.Clock,
+        title:'Clock'
+    },
+    {   
+        id:3,
+        logo:HomeStackLogo.Folder,
+        title:'Folder'
+    },
+    {   
+        id:4,
+        logo:HomeStackLogo.Graph,
+        title:'Graph'
+    },
+    {   
+        id:5,
+        logo:HomeStackLogo.Task,
+        title:'Task'
+    },
+    {   
+        id:6,
+        logo:HomeStackLogo.Timming,
+        title:'Timming'
+    },
+    {   
+        id:7,
+        logo:HomeStackLogo.Calander,
+        title:'Calander'
+    },
+    {   
+        id:8,
+        logo:HomeStackLogo.Clock,
+        title:'Clock'
+    },
+    {   
+        id:9,
+        logo:HomeStackLogo.Folder,
+        title:'Folder'
+    },
+    {   
+        id:10,
+        logo:HomeStackLogo.Graph,
+        title:'Graph'
+    },
+    {   
+        id:11,
+        logo:HomeStackLogo.Task,
+        title:'Task'
+    },
+    {   
+        id:12,
+        logo:HomeStackLogo.Timming,
+        title:'Timming'
+    }
+]

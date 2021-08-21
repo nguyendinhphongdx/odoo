@@ -9,6 +9,7 @@ export default {
         CHAT:'ChatScreen',
         SEARCH:'SearchScreen',
         SPLASH:'FlashScreen',
-        TABBUTTOM:'TabButtom'
+        TABBUTTOM:'TabButtom',
+        PROJECT:'ProjectScreen'
     }
 }

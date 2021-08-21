@@ -7,16 +7,22 @@ import {
   Dimensions,
   FlatList,
   Image,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
+  Keyboard,  
+  TextInput
 } from 'react-native';
 import ContainerScreen from '../../../common/components/ContainerScreen';
 import HeaderScreen from '../../../common/components/headerScreen';
 import TextInputCtrl from '../../../common/components/TextInput';
 import {dataMessage} from '../mock/data';
 import {Easing} from 'react-native-reanimated';
+import { Button } from 'react-native';
 const {width, height} = Dimensions.get('window');
 interface PropsScreens {}
 interface MessageType {
@@ -31,10 +37,10 @@ var messageMock: Array<MessageType> = dataMessage;
 const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
   const {message} = route.params;
   const idCurrent = 0;
-  const Keyboard = useKeyboard();
+  const KeyboardUse = useKeyboard();
   const ref = React.useRef<FlatList>(null);
   const [text, setText] = React.useState('');
-  const [flex, setFlex] = React.useState(50);
+  const [flex, setFlex] = React.useState(0);
   const [state, setState] = React.useState({
     focusText: false,
   });
@@ -47,7 +53,9 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
   });
   const handleResize = () => {
     //anmated bottom input
-    Keyboard.keyboardShown ? setFlex(0) : setFlex(50);
+    // console.log(Keyboard.keyboardHeight);
+    
+    KeyboardUse.keyboardShown ? setFlex(25) : setFlex(0);
     //focus input expand
     Animated.timing(widthForInput, {
       toValue: state.focusText ? 0 : 1,
@@ -118,14 +126,22 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
 
   React.useEffect(() => {
     ref.current?.scrollToEnd();
+    messageMock = dataMessage;
+    console.log(messageMock);
+    
   }, []);
   return (
-    <ContainerScreen
+      <ContainerScreen
       color="white"
       style={{paddingHorizontal: 0, backgroundColor: 'white'}}>
-      <View style={{flex: 1, marginBottom: flex}}>
-        <HeaderScreen title={message.name} goBack={true} info={true} />
-        <View
+            <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={styles.container}
+  >
+    <HeaderScreen title={message.name} goBack={true} info={true} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={{flex: 1,marginBottom:flex}}>
+      <View
           style={{
             flex: 1,
             backgroundColor: 'rgba(255,255,255,1)',
@@ -142,6 +158,7 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
               justifyContent: 'flex-end',
             }}
             onLayout={handleResize}
+            
           />
         </View>
         <View
@@ -185,8 +202,11 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
             <IconA name={'like1'} size={25} color="black" />
           </View>
         </View>
+      
       </View>
-    </ContainerScreen>
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
+      </ContainerScreen>
   );
 };
 export default ChatScreen;
@@ -236,4 +256,26 @@ const styles = StyleSheet.create({
     color: 'black',
     borderWidth: 0,
   },
+  container: {
+    flex: 1
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: "space-around"
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48
+  },
+  textInput: {
+    height: 40,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 36
+  },
+  btnContainer: {
+    backgroundColor: "white",
+    marginTop: 12
+  }
 });
