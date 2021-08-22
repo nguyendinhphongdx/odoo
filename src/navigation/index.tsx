@@ -146,9 +146,17 @@ const ProfileStack: React.FC<{}> = ({children}) => {
   );
 };
 const AppRouter: React.FC<PropsRouter> = ({children}) => {
+  const MyTransition = {
+    gestureDirection: 'horizontal',
+    transitionSpec: {
+      open: TransitionSpecs.TransitionIOSSpec,
+      close: TransitionSpecs.TransitionIOSSpec,
+    },
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  };
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{headerShown: false,...MyTransition}}>
         <Stack.Screen
           name={Constant.SCREEN.SPLASH}
           //   options={options}

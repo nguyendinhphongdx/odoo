@@ -194,3 +194,47 @@ const data = [
 ]
  
 export const boardRepository = new BoardRepository(data);
+
+export interface PropsItemTimeRow {
+  id: number;
+  date?:string;
+  actor: string;
+  description?: string;
+  spendTime?: string;
+}
+export const dataTimeTable:Array<PropsItemTimeRow>=[
+  {
+    id:0,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:1,
+    actor: "TrungLN",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:2,
+    actor: "VietPDb",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:3,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },{
+    id:4,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  }
+]
