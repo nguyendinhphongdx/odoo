@@ -43,7 +43,7 @@ const HomeScreen: React.FC<PropsScreens> = ({children}) => {
       <View style={{ flex: 1}}>
         <FlatList
           data={ListModule}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           renderItem={RenderModule}
           numColumns={2}
         />

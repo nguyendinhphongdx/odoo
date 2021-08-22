@@ -10,6 +10,8 @@ export default {
         SEARCH:'SearchScreen',
         SPLASH:'FlashScreen',
         TABBUTTOM:'TabButtom',
-        PROJECT:'ProjectScreen'
+        PROJECT:'ProjectScreen',
+        TASK:'TaskScreen',
+        DETAILTASK:'DetailScreen'
     }
 }

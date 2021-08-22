@@ -1,12 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface PropsType {
   title?: string;
   goBack?: boolean;
-  info?:boolean
+  info?:boolean;
+  style?:ViewStyle;
 }
 const HeaderScreen = (props: PropsType) => {
   const navigation = useNavigation();
@@ -21,7 +22,8 @@ const HeaderScreen = (props: PropsType) => {
         alignItems: 'center',
         height:30,
         borderColor:'gray',
-        borderBottomWidth:.5
+        borderBottomWidth:.5,
+        ...props.style
       }}>
       {props.goBack && (
         <TouchableOpacity

@@ -239,6 +239,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
     maxWidth: '100%',
+    backgroundColor:'rgba(255,255,255,0.4)'
   },
   icon: {
     width: 30,

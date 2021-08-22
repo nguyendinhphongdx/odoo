@@ -21,6 +21,8 @@ import CustomBottomTab from './CustomBottomTab';
 import GettingStartedScreen from '../screens/gettingStarted/gettingStarted';
 import {HeaderTitle} from '@react-navigation/elements';
 import ProjectScreen from '../screens/home/ModuleScreens/projects';
+import TasksScreen from '../screens/home/ModuleScreens/projects/tasks';
+import DetailTasksScreen from '../screens/home/ModuleScreens/projects/detailTask';
 
 const Tab: any = createBottomTabNavigator();
 const Stack: any = createStackNavigator();
@@ -83,6 +85,8 @@ const HomeStack: React.FC<{}> = ({children}) => {
       }}>
       <Stack.Screen name={Constant.SCREEN.HOMESCREEN} component={HomeScreen} />
       <Stack.Screen name={Constant.SCREEN.PROJECT} component={ProjectScreen} />
+      <Stack.Screen name={Constant.SCREEN.TASK} component={TasksScreen} />
+      <Stack.Screen name={Constant.SCREEN.DETAILTASK} component={DetailTasksScreen} />
     </Stack.Navigator>
   );
 };
