@@ -13,5 +13,11 @@ export default {
         PROJECT:'ProjectScreen',
         TASK:'TaskScreen',
         DETAILTASK:'DetailScreen'
+    },
+    STORAGE:{
+        DOMAIN: 'DOMAIN',
+        DATABASE:'DATABASE',
+        USERNAME:'USERNAME',
+        PASSWORD:'PASSWORD',
     }
 }

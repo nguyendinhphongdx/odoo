@@ -4,6 +4,7 @@ import {Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View} from 're
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ContainerScreen from '../../../../common/components/ContainerScreen';
 import HeaderScreen from '../../../../common/components/headerScreen';
+import StarButton from '../../../../common/components/starFav';
 import Constant from '../../../../config/Constant';
 import {ListProject, PropsItemProject} from '../../mock/data';
 const {width, height} = Dimensions.get('window');
@@ -11,13 +12,14 @@ interface PropsScreens {}
 const ProjectScreen: React.FC<PropsScreens> = () => {
     const navigation = useNavigation();
   const RenderProject = (props: {item: PropsItemProject}) => {
+    const [value, setValue] = React.useState(props.item.favorites);
     return (
       <TouchableOpacity
       activeOpacity={0.7}
       onPress={() => navigation.navigate(Constant.SCREEN.TASK,{project: props.item})}
         style={{...styles.itemProject, backgroundColor: props.item.color,justifyContent:'space-between',flexDirection: 'column'}}>
         <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-            <Icon name="star" size={20} color={props.item.favorites?"yellow":"black"}/>
+            <StarButton value={true} setValue={setValue}/>
             <Text>{props.item.title}</Text>
             <TouchableOpacity onPress={() => console.log('menu')} style={{paddingHorizontal:10}}>
             <Icon name="ellipsis-v" size={20} color="blue"/>

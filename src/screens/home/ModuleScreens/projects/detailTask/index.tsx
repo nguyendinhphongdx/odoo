@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   useWindowDimensions,
   View,
@@ -17,7 +18,10 @@ interface PropsScreens {}
 const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
   const {title} = route.params;
   const FirstRoute = () => (
-    <View style={{flex: 1, backgroundColor: '#ff4081'}} />
+    <View style={{flex: 1, backgroundColor: '#ff4081'}}>
+      <TextInput style={{backgroundColor: 'yellow'}}/>
+
+    </View>
   );
   const SecondRoute = () => {
     const RenderTimeRow = (props: {item: PropsItemTimeRow}) => {
@@ -59,7 +63,7 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
     <ContainerScreen bottomTab={true} style={{paddingHorizontal:0}}>
       <HeaderScreen title={title} goBack={true} />
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <View style={{width: '100%'}}>
+        {/* <View style={{width: '100%'}}>
           <View style={{...styles.row, paddingRight: 20}}>
             <Icon name="star" color="green" size={25} />
             <Text style={styles.title}>
@@ -87,7 +91,7 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
               <Text style={styles.content}>25/07/2021</Text>
             </View>
           </View>
-        </View>
+        </View> */}
         <TabViewComponent
           routes={routes}
           containerStyle={{marginTop: 20, paddingHorizontal: 5}}

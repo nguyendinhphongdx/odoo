@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
+import { appSettings } from './src/config/AppSettings';
 import store from './src/core/redux/store/configStore';
 import AppRouter from './src/navigation';
 const {height, width} = Dimensions.get('screen');
@@ -25,6 +26,7 @@ const {height, width} = Dimensions.get('screen');
 const App = () => {
   const [load, setLoad] = React.useState(1);
   React.useEffect(() => {
+    appSettings.getStorage();
     setTimeout(() => {
       setLoad(0);
     }, 2000);
