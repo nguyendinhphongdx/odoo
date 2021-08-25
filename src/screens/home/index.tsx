@@ -13,9 +13,13 @@ import WebView from 'react-native-webview';
 import {ListModule, PropsItemModule} from './mock/data';
 import { ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 interface PropsScreens {}
 const HomeScreen: React.FC<PropsScreens> = ({children}) => {
+    const store = useSelector((state:any)=> state);
+    console.log('store in redux',store);
+    
     const navigation = useNavigation();
     const handleNavigate = (nav:string | undefined) =>{
         if(typeof nav === 'undefined'){
