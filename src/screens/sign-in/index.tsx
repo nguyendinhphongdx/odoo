@@ -45,6 +45,10 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
         }
       })
       .finally(() => setLoad(false));
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{name: Constant.SCREEN.TABBUTTOM}],
+      // });
   };
 
   return (

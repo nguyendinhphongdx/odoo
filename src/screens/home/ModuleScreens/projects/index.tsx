@@ -12,14 +12,14 @@ interface PropsScreens {}
 const ProjectScreen: React.FC<PropsScreens> = () => {
     const navigation = useNavigation();
   const RenderProject = (props: {item: PropsItemProject}) => {
-    const [value, setValue] = React.useState(props.item.favorites);
+    // Parseconst [value, setValue] = React.useState(props.item.favorites);
     return (
       <TouchableOpacity
       activeOpacity={0.7}
       onPress={() => navigation.navigate(Constant.SCREEN.TASK,{project: props.item})}
         style={{...styles.itemProject, backgroundColor: props.item.color,justifyContent:'space-between',flexDirection: 'column'}}>
         <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-            <StarButton value={true} setValue={setValue}/>
+            {/* <StarButton value={true} setValue={setValue}/> */}
             <Text>{props.item.title}</Text>
             <TouchableOpacity onPress={() => console.log('menu')} style={{paddingHorizontal:10}}>
             <Icon name="ellipsis-v" size={20} color="blue"/>
