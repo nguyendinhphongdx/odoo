@@ -11,6 +11,7 @@ import {
 import React, {useRef} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import Constant from '../../config/Constant';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const {width, height} = Dimensions.get('screen');
 interface PropsScreens {}
 interface PropsItem {
@@ -49,6 +50,7 @@ const GettingStartedScreen: React.FC<PropsScreens> = ({children}) => {
     }
   };
   const handleSkip = () => {
+    AsyncStorage.setItem(Constant.STORAGE.GETTINGSTARTED,"false");
     navigator.reset({
       index: 0,
       routes: [{name: Constant.SCREEN.LOGIN}],

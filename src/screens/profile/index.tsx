@@ -4,6 +4,7 @@ import ContainerScreen from "../../common/components/ContainerScreen";
 import ButtonLogout from '../../common/components/button/Button';
 import { useNavigation } from "@react-navigation/native";
 import Constant from "../../config/Constant";
+import HeaderScreen from "../../common/components/headerScreen";
 
 interface PropsScreens {
 
@@ -11,9 +12,11 @@ interface PropsScreens {
 const ProfileScreen: React.FC<PropsScreens> = ({ children }) => {
     const navigation = useNavigation();
     return (
-        <ContainerScreen>
-                <Text>ProfileScreen</Text>
+        <ContainerScreen bottomTab={true}>
+              <View style={{height:'100%'}}>
+              <HeaderScreen title={'ProfileScreen'}/>
                 <ButtonLogout title="Đăng xuất" onPress={()=>navigation.navigate(Constant.SCREEN.LOGIN)}/>
+              </View>
         </ContainerScreen>
     )
 }

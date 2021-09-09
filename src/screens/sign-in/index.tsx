@@ -30,29 +30,29 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
   const [isShow, setIsShow] = React.useState(true);
   const dispatch = useDispatch();
   const handleLogin = () => {
-    setLoad(true);
-    userService
-      .LoginService(
-        {db: appSettings.db, login: state.account, password: state.password},
-        dispatch,
-      )
-      .then(token => {
-        if (token) {
-          navigation.reset({
-            index: 0,
-            routes: [{name: Constant.SCREEN.TABBUTTOM}],
-          });
-        }
-      })
-      .finally(() => setLoad(false));
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{name: Constant.SCREEN.TABBUTTOM}],
-      // });
+    // setLoad(true);
+    // userService
+    //   .LoginService(
+    //     {db: appSettings.db, login: state.account, password: state.password},
+    //     dispatch,
+    //   )
+    //   .then(token => {
+    //     if (token) {
+    //       navigation.reset({
+    //         index: 0,
+    //         routes: [{name: Constant.SCREEN.TABBUTTOM}],
+    //       });
+    //     }
+    //   })
+    //   .finally(() => setLoad(false));
+      navigation.reset({
+        index: 0,
+        routes: [{name: Constant.SCREEN.TABBUTTOM}],
+      });
   };
 
   return (
-    <ContainerScreen>
+    <ContainerScreen >
       <View>
         {load && (
           <View style={[styles.container, styles.horizontal, {opacity: 0.6}]}>

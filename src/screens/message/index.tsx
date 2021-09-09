@@ -17,7 +17,7 @@ import Constant from '../../config/Constant';
 import HeaderScreen from '../../common/components/headerScreen';
 const faker = require('faker');
 const story = require('../../assets/icon/png/logo.png');
-const avatar = require('../../assets/icon/png/avata2.png');
+const avatar = require('../../assets/icon/png/user.png');
 const {width, height} = Dimensions.get('screen');
 interface PropsScreens {}
 interface MessageProps {
@@ -28,19 +28,20 @@ interface MessageProps {
   notSeen: number;
   lastTime: string;
 }
-var data: Array<{
-  index: number;
-  name: string;
-  image: string;
-}> = [];
 
-var MessageArray: Array<MessageProps> = [];
+
 const MessageScreen: React.FC<PropsScreens> = ({children}) => {
-  const [state, setState] = React.useState({searchText: ''});
+  const [searchText, setSearchText] = React.useState('');
   const navigation = useNavigation();
   const handleNavigate = (message: MessageProps) => {
     navigation.navigate(Constant.SCREEN.CHAT, {message: message});
   };
+  var MessageArray: Array<MessageProps> = [];
+  var data: Array<{
+    index: number;
+    name: string;
+    image: string;
+  }> = [];
   for (let index = 0; index < 10; index++) {
     data.push({
       index: index,
@@ -90,25 +91,24 @@ const MessageScreen: React.FC<PropsScreens> = ({children}) => {
       <View>
         <HeaderScreen title={'Message screen'}/>
         <TextInputSearch
-          value={state.searchText}
+          value={searchText}
           onChangeText={(text: string) =>
-            setState({...state, searchText: text})
+           setSearchText(text)
           }
-          iconRight={<Icon name={'search'} size={20} color="gray" />}
+          iconRight={<Icon name={'search'} size={20} color="white" />}
           placeholder={'Searching ...'}
-          placeholderTextColor={'gray'}
+          placeholderTextColor={'white'}
         />
         <View style={{paddingVertical: 10}}>
           <StoryHorizontal data={data} />
         </View>
       </View>
+      
       <View style={{flex: 1}}>
-        <Text style={{color: 'white', fontSize: 20}}>Recent</Text>
+      <Text style={{color: 'white', fontSize: 17}}>Recent</Text>
         <FlatList
-          style={{height:'100%'}}
-          nestedScrollEnabled
           data={MessageArray}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           renderItem={props => {
             return <RowMesage {...props} />;
           }}
@@ -134,10 +134,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0, 111, 226, 0.39)',
   },
   containerRow: {flex: 1, position: 'relative'},
-  avatar: {width: 70, height: 70, borderRadius: 35},
+  avatar: {width: 60, height: 60, borderRadius: 35},
   bagde: {
     position: 'absolute',
-    left: 60,
+    left: 40,
     top: 0,
     backgroundColor: 'red',
     borderRadius: 10,

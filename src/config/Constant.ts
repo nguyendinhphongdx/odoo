@@ -12,12 +12,14 @@ export default {
         TABBUTTOM:'TabButtom',
         PROJECT:'ProjectScreen',
         TASK:'TaskScreen',
-        DETAILTASK:'DetailScreen'
+        DETAILTASK:'DetailScreen',
+        SUBTASK:'SubtaskScreen'
     },
     STORAGE:{
         DOMAIN: 'DOMAIN',
         DATABASE:'DATABASE',
         USERNAME:'USERNAME',
         PASSWORD:'PASSWORD',
+        GETTINGSTARTED:'GETTINGSTARTED'
     }
 }

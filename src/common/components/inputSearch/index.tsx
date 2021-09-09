@@ -9,7 +9,7 @@ interface PropsTextInput {
   value?: string;
   iconRight?:any;
   style?:ViewStyle;
-  onChangeText:(text:string) => void,
+  onChangeText?:(text:string) => void,
   onPress?:(event: GestureResponderEvent) => void,
   placeholderTextColor?:string
 }
@@ -18,11 +18,11 @@ const TextInputSearch = ({...props}: PropsTextInput) => {
     <View style={{position:'relative'}}>
       <TextInput
         placeholder={props.placeholder || ''}
-        placeholderTextColor={props.placeholderTextColor ||'#d1d9e6'}
+        placeholderTextColor={props.placeholderTextColor ||'white'}
         value={props.value || ''}
         {...props}
         style={{
-          borderBottomColor: 'gray',
+          borderBottomColor: 'white',
           borderBottomWidth: 1,
           paddingHorizontal: 10,
           paddingVertical: 10,
@@ -31,7 +31,7 @@ const TextInputSearch = ({...props}: PropsTextInput) => {
           ...props.style,
           flexDirection:'column'
         }}
-        onChangeText={(text: string) => props.onChangeText(text)}
+        onChangeText={(text: string) => props.onChangeText?props.onChangeText(text):null}
       />
      <View style={{position:'absolute',right:10,alignItems:'center',flex:1,top:10}}>
       {props.iconRight && (

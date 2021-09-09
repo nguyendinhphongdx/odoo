@@ -50,10 +50,12 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: 'green',
         borderRadius:5,
-        backgroundColor: 'rgba(0,0,0,.2)'
+        borderWidth:1,
+        borderBottomWidth:0
       },
       tabContent: {
-          flex: 1
+          flex: 1,
+          borderTopWidth:.5,
       },
       title:{
           fontSize:14,

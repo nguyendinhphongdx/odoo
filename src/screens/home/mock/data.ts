@@ -17,6 +17,21 @@ export interface PropsItemProject {
     task?: number;
     favorites?: boolean;
 }
+export interface PropsItemTimeRow {
+  id: number;
+  date?:string;
+  actor: string;
+  description?: string;
+  spendTime?: string;
+}
+export interface PropsItemLogs {
+  id: number;
+  author:string;
+  image?: string;
+  time?: Date;
+  message: string;
+}
+var ListItemLogs:Array<PropsItemLogs> = [];
 export const ListModule: Array<PropsItemModule> = [
     {
         id: 1,
@@ -195,13 +210,7 @@ const data = [
  
 export const boardRepository = new BoardRepository(data);
 
-export interface PropsItemTimeRow {
-  id: number;
-  date?:string;
-  actor: string;
-  description?: string;
-  spendTime?: string;
-}
+
 export const dataTimeTable:Array<PropsItemTimeRow>=[
   {
     id:0,
@@ -236,5 +245,49 @@ export const dataTimeTable:Array<PropsItemTimeRow>=[
     description: "This is description",
     spendTime: "2h",
     date:'12/7/2021'
+  },
+  {
+    id:5,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:6,
+    actor: "TrungLN",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:7,
+    actor: "VietPDb",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },
+  {
+    id:8,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
+  },{
+    id:9,
+    actor: "PhongND",
+    description: "This is description",
+    spendTime: "2h",
+    date:'12/7/2021'
   }
 ]
+for (let index = 0; index < 10; index++) {
+  ListItemLogs.push({
+      id:index,
+      author:'phongnd',
+      time:new  Date(),
+      message:'abc'
+  })
+  
+}
+export {ListItemLogs}

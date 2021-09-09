@@ -1,13 +1,14 @@
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
+import React, { ReactChild } from 'react';
 import {Text, TouchableOpacity, View, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface PropsType {
   title?: string;
   goBack?: boolean;
-  info?:boolean;
   style?:ViewStyle;
+  iconRight?: ReactChild,
+  onPressIconRight?:()=>void
 }
 const HeaderScreen = (props: PropsType) => {
   const navigation = useNavigation();
@@ -28,7 +29,7 @@ const HeaderScreen = (props: PropsType) => {
       {props.goBack && (
         <TouchableOpacity
           onPress={handleGoBack}
-          style={{width: '10%', zIndex: 10}}>
+          style={{width: '10%', zIndex: 10,paddingLeft:5}}>
           <Icon name="arrow-left" size={25} color="blue" />
         </TouchableOpacity>
       )}
@@ -43,12 +44,13 @@ const HeaderScreen = (props: PropsType) => {
           {props.title}{' '}
         </Text>
       </View>
-      {props.info && (
+        {props.iconRight? (
           <TouchableOpacity
-            style={{width: '10%', marginLeft: props.info ? '-10%':0 ,alignSelf:'flex-end'}}>
-            <Icon name="info-circle" size={25} color="blue" />
-          </TouchableOpacity>
-        )}
+          onPress={()=>props.onPressIconRight?props.onPressIconRight():null}
+          style={{width: '10%', marginLeft: '-10%', alignSelf: 'flex-end'}}>
+          {props.iconRight}
+        </TouchableOpacity>
+        ) :null}
     </View>
   );
 };

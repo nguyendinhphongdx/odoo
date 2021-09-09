@@ -1,34 +1,45 @@
 import React from 'react';
 import {
-  Dimensions,
   FlatList,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  useWindowDimensions,
   View,
 } from 'react-native';
-import ContainerScreen from '../../../../../common/components/ContainerScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ContainerScreen from '../../../../../common/components/ContainerScreen';
 import HeaderScreen from '../../../../../common/components/headerScreen';
+import LogTask from '../../../../../common/components/logTask';
+import StarButton from '../../../../../common/components/starFav';
 import TabViewComponent from '../../../../../common/components/tabView';
+import Constant from '../../../../../config/Constant';
 import {dataTimeTable, PropsItemTimeRow} from '../../../mock/data';
 interface PropsScreens {}
 const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
   const {title} = route.params;
+  const goToSubTask = ()=>{
+    navigation.navigate(Constant.SCREEN.SUBTASK,{project:title})
+  }
   const FirstRoute = () => (
-    <View style={{flex: 1, backgroundColor: '#ff4081'}}>
-      <TextInput style={{backgroundColor: 'yellow'}}/>
-
+    <View style={{flex: 1}}>
+      <View></View>
     </View>
   );
   const SecondRoute = () => {
     const RenderTimeRow = (props: {item: PropsItemTimeRow}) => {
       return (
-        <View style={{flexDirection: 'row',marginVertical:5,borderBottomWidth:1}} key={props.item.id}>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginVertical: 5,
+            borderBottomWidth: 1,
+          }}
+          key={props.item.id}>
           <Text style={styles.tRow}>{props.item.date}</Text>
-          <Text style={styles.tRow} >{props.item.actor}</Text>
+          <Text style={styles.tRow}>{props.item.actor}</Text>
           <Text style={styles.tRow}>{props.item.description}</Text>
           <Text style={styles.tRow}>{props.item.spendTime}</Text>
         </View>
@@ -45,12 +56,14 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
       );
     };
     return (
-      <View style={{flex: 1}}>
-        <RenderHeaderTime />
+      <View>
         <FlatList
+          ListHeaderComponent={<RenderHeaderTime />}
+          nestedScrollEnabled
           data={dataTimeTable}
           keyExtractor={(item: PropsItemTimeRow) => item.id.toString()}
           renderItem={props => <RenderTimeRow {...props} />}
+          stickyHeaderIndices={[0]}
         />
       </View>
     );
@@ -60,12 +73,17 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
     {key: 'second', title: 'Thời gian biểu', scene: <SecondRoute />},
   ]);
   return (
-    <ContainerScreen bottomTab={true} style={{paddingHorizontal:0}}>
-      <HeaderScreen title={title} goBack={true} />
+    <ContainerScreen bottomTab={true} style={{paddingHorizontal: 0}}>
+      <HeaderScreen title={title} goBack={true}
+      iconRight={
+          <Icon name={'tasks'} size={25}/>
+      }
+      onPressIconRight={()=> goToSubTask()}
+      />
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        {/* <View style={{width: '100%'}}>
+        <View style={{width: '100%', paddingHorizontal: 5}}>
           <View style={{...styles.row, paddingRight: 20}}>
-            <Icon name="star" color="green" size={25} />
+            <StarButton value={false} />
             <Text style={styles.title}>
               {' '}
               Hoàn thiện module khác (SMS, Chat ... chưa biết đặt tên là gì)
@@ -91,11 +109,21 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
               <Text style={styles.content}>25/07/2021</Text>
             </View>
           </View>
-        </View> */}
-        <TabViewComponent
-          routes={routes}
-          containerStyle={{marginTop: 20, paddingHorizontal: 5}}
-        />
+        </View>
+        <ScrollView style={{flex:1}}
+        nestedScrollEnabled
+        >
+         <SafeAreaView style={{height: 300}}>
+         <TabViewComponent
+            routes={routes}
+            containerStyle={{
+              marginTop: 20,
+              paddingHorizontal: 5,
+            }}
+          />
+         </SafeAreaView>
+          <LogTask  style={{marginTop:10,flex:1}}/>
+        </ScrollView>
       </View>
     </ContainerScreen>
   );

@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import Constant from '../config/Constant';
 import {Spacing} from '../theme';
-import {ScreenWidth} from '../theme/size';
 const {width, height} = Dimensions.get('window');
+import {useRoute, useNavigation} from '@react-navigation/native';
 // import { Spacing } from '../theme';
 
 const CustomBottomTab = ({state, descriptors, navigation}: any) => {
@@ -32,27 +32,27 @@ const CustomBottomTab = ({state, descriptors, navigation}: any) => {
       duration: 400,
       easing: Easing.ease,
       useNativeDriver: false, // <-- neccessary
-    }).start(() => setvible(!visible));
+    }).start(() => {setvible(!visible)});
   };
-  
+
   // hide tabar bottom with condition
   const _state = state.routes[state.index].state;
   if (_state) {
     const _screenCurrent = _state.routeNames[_state.index];
+    console.log(_screenCurrent,visible);
     if (_screenCurrent === Constant.SCREEN.CHAT) {
-      if(visible == false){
+      if (visible == false) {
         console.log('hide');
-        
         AnimatedBottom();
       }
     } else {
-      if(visible == true){
+      if (visible == true) {
         console.log('open');
         AnimatedBottom();
       }
     }
-  } 
- 
+  }
+
   return (
     <Animated.View style={{...styles.ctn, bottom: aniBottom}}>
       {state.routes.map((route: any, index: any) => {

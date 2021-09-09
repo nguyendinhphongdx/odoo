@@ -7,7 +7,6 @@ import {
   createStackNavigator,
   TransitionSpecs,
 } from '@react-navigation/stack';
-import {svgs} from '../assets';
 import Constant from '../config/Constant';
 import HomeScreen from '../screens/home';
 import MessageScreen from '../screens/message';
@@ -19,10 +18,11 @@ import LoginScreen from '../screens/sign-in';
 import RegisterScreen from '../screens/sign-up';
 import CustomBottomTab from './CustomBottomTab';
 import GettingStartedScreen from '../screens/gettingStarted/gettingStarted';
-import {HeaderTitle} from '@react-navigation/elements';
 import ProjectScreen from '../screens/home/ModuleScreens/projects';
 import TasksScreen from '../screens/home/ModuleScreens/projects/tasks';
 import DetailTasksScreen from '../screens/home/ModuleScreens/projects/detailTask';
+import SubTasksScreen from '../screens/home/ModuleScreens/projects/subTask';
+import { appSettings } from '../config/AppSettings';
 
 const Tab: any = createBottomTabNavigator();
 const Stack: any = createStackNavigator();
@@ -87,6 +87,7 @@ const HomeStack: React.FC<{}> = ({children}) => {
       <Stack.Screen name={Constant.SCREEN.PROJECT} component={ProjectScreen} />
       <Stack.Screen name={Constant.SCREEN.TASK} component={TasksScreen} />
       <Stack.Screen name={Constant.SCREEN.DETAILTASK} component={DetailTasksScreen} />
+      <Stack.Screen name={Constant.SCREEN.SUBTASK} component={SubTasksScreen} />
     </Stack.Navigator>
   );
 };
@@ -146,6 +147,7 @@ const ProfileStack: React.FC<{}> = ({children}) => {
   );
 };
 const AppRouter: React.FC<PropsRouter> = ({children}) => {
+  
   const MyTransition = {
     gestureDirection: 'horizontal',
     transitionSpec: {
@@ -156,7 +158,9 @@ const AppRouter: React.FC<PropsRouter> = ({children}) => {
   };
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false,...MyTransition}}>
+      <Stack.Navigator screenOptions={{headerShown: false,...MyTransition}}
+      initialRouteName={appSettings.gettingStarted?Constant.SCREEN.SPLASH:Constant.SCREEN.LOGIN}
+      >
         <Stack.Screen
           name={Constant.SCREEN.SPLASH}
           //   options={options}

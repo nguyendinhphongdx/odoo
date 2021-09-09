@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ContainerScreen from '../../../../common/components/ContainerScreen';
@@ -12,14 +12,14 @@ interface PropsScreens {}
 const ProjectScreen: React.FC<PropsScreens> = () => {
     const navigation = useNavigation();
   const RenderProject = (props: {item: PropsItemProject}) => {
-    // Parseconst [value, setValue] = React.useState(props.item.favorites);
+    // const [value, setValue] = useState(false);
     return (
       <TouchableOpacity
       activeOpacity={0.7}
       onPress={() => navigation.navigate(Constant.SCREEN.TASK,{project: props.item})}
         style={{...styles.itemProject, backgroundColor: props.item.color,justifyContent:'space-between',flexDirection: 'column'}}>
         <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
-            {/* <StarButton value={true} setValue={setValue}/> */}
+            <StarButton value={true} />
             <Text>{props.item.title}</Text>
             <TouchableOpacity onPress={() => console.log('menu')} style={{paddingHorizontal:10}}>
             <Icon name="ellipsis-v" size={20} color="blue"/>
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.53,
         shadowRadius: 13.97,
-        elevation: 6,
-        opacity: 0.6
+        opacity: 1
       }
 })
