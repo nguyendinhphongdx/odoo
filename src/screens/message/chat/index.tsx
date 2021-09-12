@@ -122,11 +122,12 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
       </View>
     );
   };
-  ref.current?.scrollToEnd();
+  const ScrollToBottom = ()=>{
+    ref.current?.scrollToEnd()
+  }
   React.useEffect(() => {
     messageMock = dataMessage;
-    ref.current?.scrollToEnd();
-    console.log('scroll bottom');
+    setTimeout(ScrollToBottom,1000);
   }, []);
   return (
     <ContainerScreen
@@ -142,7 +143,7 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
       <View style={{flex: 1, backgroundColor: 'red'}}>
         <View
           style={{
-            height: '100%',
+            flex:1,
             backgroundColor: 'rgba(255,255,255,1)',
             paddingBottom: 50,
           }}>
@@ -157,6 +158,7 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
               flexDirection: 'column',
               justifyContent: 'flex-end',
             }}
+            onLayout={()=>ScrollToBottom()}
           />
         </View>
         <View

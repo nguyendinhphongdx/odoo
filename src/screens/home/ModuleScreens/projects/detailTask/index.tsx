@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -20,6 +20,7 @@ import {dataTimeTable, PropsItemTimeRow} from '../../../mock/data';
 interface PropsScreens {}
 const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
   const {title} = route.params;
+  const [value,setValue] = useState(true);
   const goToSubTask = ()=>{
     navigation.navigate(Constant.SCREEN.SUBTASK,{project:title})
   }
@@ -83,7 +84,7 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={{width: '100%', paddingHorizontal: 5}}>
           <View style={{...styles.row, paddingRight: 20}}>
-            <StarButton value={false} />
+            <StarButton value={value} setValue={setValue} />
             <Text style={styles.title}>
               {' '}
               Hoàn thiện module khác (SMS, Chat ... chưa biết đặt tên là gì)
