@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -12,15 +12,19 @@ import {
 } from 'react-native';
 import {BottomSheet, ListItem} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 import ContainerScreen from '../../../../common/components/ContainerScreen';
 import HeaderScreen from '../../../../common/components/headerScreen';
 import StarButton from '../../../../common/components/starFav';
 import Constant from '../../../../config/Constant';
-import {ListProject, PropsItemProject} from '../../mock/data';
+import projectService from '../../../../core/redux/services/projectService';
+import { PropsItemProject} from '../../mock/data';
 const {width, height} = Dimensions.get('window');
 interface PropsScreens {}
 const ProjectScreen: React.FC<PropsScreens> = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const ListProject:Array<PropsItemProject> = useSelector((state:any)=> state.Project.project);
   const [projectSelected, setProjectSelected] =
     useState<null | PropsItemProject>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -97,6 +101,9 @@ const ProjectScreen: React.FC<PropsScreens> = () => {
       </TouchableWithoutFeedback>
     );
   };
+  useEffect(()=>{
+    projectService.GetAllProjects(dispatch);
+  },[])
   return (
     <ContainerScreen bottomTab={true}>
       <HeaderScreen title={'Project Screen'} goBack={true} />

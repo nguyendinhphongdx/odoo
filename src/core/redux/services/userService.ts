@@ -1,10 +1,10 @@
 import { ToastAndroid } from "react-native";
 import userActions from "../actions/userActions";
-import sendRequest from "../axios/api";
+import ApiService from "../axios/api";
 
 class UserService {
     LoginService(body:any,dispatch:any){
-        return sendRequest('/login','post',body)
+        return ApiService.sendRequestFormURL('/login','post',body)
         .then(response =>{
             console.log('response',response);
             if(response.status == 200){

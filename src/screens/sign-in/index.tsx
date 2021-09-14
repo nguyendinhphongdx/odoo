@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -14,43 +14,56 @@ import ButtonLogin from '../../common/components/button/Button';
 import ContainerScreen from '../../common/components/ContainerScreen';
 import TextInputCtrl from '../../common/components/TextInput';
 import Constant from '../../config/Constant';
+import { CheckBox } from 'react-native-elements/dist/checkbox/CheckBox';
 import userService from '../../core/redux/services/userService';
 import {useDispatch} from 'react-redux';
 import {appSettings} from '../../config/AppSettings';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Logo = require('../../assets/icon/png/logo.png');
 const {width, height} = Dimensions.get('window');
 interface PropsScreens {}
 const LoginScreen: React.FC<PropsScreens> = ({children}) => {
   const navigation = useNavigation();
   const [state, setState] = React.useState({
-    account: '',
-    password: '',
+    account: appSettings.userName,
+    password: appSettings.passWord,
   });
   const [load, setLoad] = React.useState(false);
   const [isShow, setIsShow] = React.useState(true);
+  const [isSelected, setSelection] = React.useState(appSettings.remember);
   const dispatch = useDispatch();
   const handleLogin = () => {
-    // setLoad(true);
-    // userService
-    //   .LoginService(
-    //     {db: appSettings.db, login: state.account, password: state.password},
-    //     dispatch,
-    //   )
-    //   .then(token => {
-    //     if (token) {
-    //       navigation.reset({
-    //         index: 0,
-    //         routes: [{name: Constant.SCREEN.TABBUTTOM}],
-    //       });
-    //     }
-    //   })
-    //   .finally(() => setLoad(false));
-      navigation.reset({
-        index: 0,
-        routes: [{name: Constant.SCREEN.TABBUTTOM}],
-      });
+    setLoad(true);
+    userService
+      .LoginService(
+        {db: appSettings.db, login: state.account, password: state.password},
+        dispatch,
+      )
+      .then(token => {
+        if (token) {
+          navigation.reset({
+            index: 0,
+            routes: [{name: Constant.SCREEN.TABBUTTOM}],
+          });
+          appSettings.token = token;
+          if(isSelected){
+              appSettings.rememberSave('true',state.account,state.password);
+          }else{
+            appSettings.rememberRemove();
+          }
+        }
+      })
+      .finally(() => setLoad(false));
+     
   };
-
+  useEffect(()=>{
+    console.log(appSettings);
+    setState({
+      account: appSettings.userName,
+      password: appSettings.passWord,
+    })
+    setSelection(appSettings.remember)
+  },[])
   return (
     <ContainerScreen >
       <View>
@@ -113,8 +126,26 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
             }
           />
         </View>
-        {/* <SvgXml xml={`${svgs.SvgEye}`} width={25} height={25} fill={'white'} /> */}
+        <View style={styles.forgotPassword}>
+                <TouchableOpacity onPress={()=>setSelection(!isSelected)} activeOpacity={.7}>
+                       <View style={{flexDirection:'row'}}>
+                            <View style={{marginRight:20}}>
+                                <CheckBox
+                                containerStyle={{padding:0,margin:0,width:25}}
+                                  checked={isSelected}
+                                  checkedIcon={<Icon name="check-square-o" size={24} color="#fff" />}
+                                  onPress={()=>setSelection(!isSelected)}
+                                />
+                            </View>
+                            <Text style={styles.label}>Remember?</Text>
+                       </View>
+                  </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={styles.label}>Forgot your password?</Text>
+                </TouchableOpacity>
+              </View>
         <ButtonLogin title={'Đăng Nhập'} onPress={handleLogin} />
+
         <View
           style={{
             flexDirection: 'row',
@@ -134,6 +165,16 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
   );
 };
 const styles = StyleSheet.create({
+  forgotPassword: {
+    marginBottom: 12,
+    marginHorizontal:5,
+    flexDirection:'row',
+    justifyContent:'space-between'
+  },
+  label: {
+    // color: theme.colors.secondary,
+    color:'#C4D0F3',
+  },
   ViewWrapLogo: {
     width: '100%',
     justifyContent: 'center',
