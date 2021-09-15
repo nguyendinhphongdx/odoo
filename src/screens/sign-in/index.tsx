@@ -28,12 +28,11 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
     account: appSettings.userName,
     password: appSettings.passWord,
   });
-  const [load, setLoad] = React.useState(false);
   const [isShow, setIsShow] = React.useState(true);
   const [isSelected, setSelection] = React.useState(appSettings.remember);
   const dispatch = useDispatch();
   const handleLogin = () => {
-    setLoad(true);
+    userService.SetLoadingApp(true,dispatch);
     userService
       .LoginService(
         {db: appSettings.db, login: state.account, password: state.password},
@@ -53,7 +52,7 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
           }
         }
       })
-      .finally(() => setLoad(false));
+      .finally(() =>  userService.SetLoadingApp(false,dispatch));
      
   };
   useEffect(()=>{
@@ -66,13 +65,6 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
   },[])
   return (
     <ContainerScreen >
-      <View>
-        {load && (
-          <View style={[styles.container, styles.horizontal, {opacity: 0.6}]}>
-            <ActivityIndicator size="large" color="#00ff00" />
-          </View>
-        )}
-      </View>
       <TouchableOpacity
         onPress={() => navigation.navigate(Constant.SCREEN.SETTING)}
         style={styles.ViewSetting}>
@@ -172,7 +164,6 @@ const styles = StyleSheet.create({
     justifyContent:'space-between'
   },
   label: {
-    // color: theme.colors.secondary,
     color:'#C4D0F3',
   },
   ViewWrapLogo: {
@@ -193,20 +184,6 @@ const styles = StyleSheet.create({
   txtLable: {
     fontSize: 17,
     color: 'white',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    position: 'absolute',
-    backgroundColor: 'rgba(0,0,0,.3)',
-    width: '100%',
-    height: height,
-    zIndex: 100,
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
+  }
 });
 export default LoginScreen;

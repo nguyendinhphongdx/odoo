@@ -17,5 +17,9 @@ class UserService {
         })
         .catch(err => ToastAndroid.show(err.message,ToastAndroid.SHORT))
     }
+    SetLoadingApp(status:boolean,dispatch:any){
+        const action = userActions.Loading(status);
+        dispatch(action);
+    }
 }
 export default new UserService();

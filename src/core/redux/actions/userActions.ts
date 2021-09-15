@@ -8,5 +8,11 @@ class UserActions{
             payload: user
         }
     }
+    Loading = (status:boolean)=>{
+        return {
+            type: ConstantUser.LOADING,
+            payload: status
+        }
+    }
 }
 export default new UserActions();

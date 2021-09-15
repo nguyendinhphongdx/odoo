@@ -1,14 +1,22 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
-  TransitionSpecs,
+  TransitionSpecs
 } from '@react-navigation/stack';
+import React from 'react';
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
+import { appSettings } from '../config/AppSettings';
 import Constant from '../config/Constant';
+import GettingStartedScreen from '../screens/gettingStarted/gettingStarted';
 import HomeScreen from '../screens/home';
+import ProjectScreen from '../screens/home/ModuleScreens/projects';
+import DetailTasksScreen from '../screens/home/ModuleScreens/projects/detailTask';
+import SubTasksScreen from '../screens/home/ModuleScreens/projects/subTask';
+import TasksScreen from '../screens/home/ModuleScreens/projects/tasks';
 import MessageScreen from '../screens/message';
 import ChatScreen from '../screens/message/chat';
 import ProfileScreen from '../screens/profile';
@@ -17,13 +25,7 @@ import SettingsScreen from '../screens/settings';
 import LoginScreen from '../screens/sign-in';
 import RegisterScreen from '../screens/sign-up';
 import CustomBottomTab from './CustomBottomTab';
-import GettingStartedScreen from '../screens/gettingStarted/gettingStarted';
-import ProjectScreen from '../screens/home/ModuleScreens/projects';
-import TasksScreen from '../screens/home/ModuleScreens/projects/tasks';
-import DetailTasksScreen from '../screens/home/ModuleScreens/projects/detailTask';
-import SubTasksScreen from '../screens/home/ModuleScreens/projects/subTask';
-import { appSettings } from '../config/AppSettings';
-
+const {height,width} = Dimensions.get('screen')
 const Tab: any = createBottomTabNavigator();
 const Stack: any = createStackNavigator();
 
@@ -156,8 +158,17 @@ const AppRouter: React.FC<PropsRouter> = ({children}) => {
     },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   };
+  const loadingStore = useSelector((state:any)=>state.User.loading);
   return (
+
     <NavigationContainer>
+      <View>
+        {loadingStore && (
+          <View style={[styles.container, styles.horizontal, {opacity: 0.6}]}>
+            <ActivityIndicator size="large" color="#00ff00" />
+          </View>
+        )}
+      </View>
       <Stack.Navigator screenOptions={{headerShown: false,...MyTransition}}
       initialRouteName={appSettings.gettingStarted?Constant.SCREEN.SPLASH:Constant.SCREEN.LOGIN}
       >
@@ -193,3 +204,19 @@ const AppRouter: React.FC<PropsRouter> = ({children}) => {
   );
 };
 export default AppRouter;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,.3)',
+    width: width,
+    height: height,
+    zIndex: 100,
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+});
