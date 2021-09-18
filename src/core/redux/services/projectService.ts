@@ -16,7 +16,7 @@ class ProjectService {
     return ApiService.sendRequestFormData('/project.project', 'GET', body)
       .then(response => {
         if (response.status == 200) {
-          const action = projectActions.Login(
+          const action = projectActions.Get_All_Project(
             converter.convertListProject(response.data),
           );
           dispatch(action);

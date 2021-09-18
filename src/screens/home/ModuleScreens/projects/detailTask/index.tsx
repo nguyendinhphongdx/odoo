@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
+  Dimensions,
   FlatList,
   SafeAreaView,
   ScrollView,
@@ -19,11 +20,11 @@ import Constant from '../../../../../config/Constant';
 import {dataTimeTable, PropsItemTimeRow} from '../../../mock/data';
 interface PropsScreens {}
 const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
-  const {title} = route.params;
-  const [value,setValue] = useState(true);
-  const goToSubTask = ()=>{
-    navigation.navigate(Constant.SCREEN.SUBTASK,{project:title})
-  }
+  const {title, task} = route.params;
+  const [value, setValue] = useState(true);
+  const goToSubTask = () => {
+    navigation.navigate(Constant.SCREEN.SUBTASK, {project: title});
+  };
   const FirstRoute = () => (
     <View style={{flex: 1}}>
       <View></View>
@@ -75,19 +76,19 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
   ]);
   return (
     <ContainerScreen bottomTab={true} style={{paddingHorizontal: 0}}>
-      <HeaderScreen title={title} goBack={true}
-      iconRight={
-          <Icon name={'tasks'} size={25}/>
-      }
-      onPressIconRight={()=> goToSubTask()}
+      <HeaderScreen
+        title={title}
+        goBack={true}
+        iconRight={<Icon name={'tasks'} size={25} />}
+        onPressIconRight={() => goToSubTask()}
       />
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={{width: '100%', paddingHorizontal: 5}}>
-          <View style={{...styles.row, paddingRight: 20}}>
+          <View style={{...styles.row, paddingRight: 10}}>
             <StarButton value={value} setValue={setValue} />
             <Text style={styles.title}>
-              {' '}
-              Hoàn thiện module khác (SMS, Chat ... chưa biết đặt tên là gì)
+              {task.name ||
+                'Hoàn thiện module khác (SMS, Chat ... chưa biết đặt tên là gì)'}
             </Text>
           </View>
           <View style={{marginTop: 10}}>
@@ -111,19 +112,17 @@ const DetailTasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
             </View>
           </View>
         </View>
-        <ScrollView style={{flex:1}}
-        nestedScrollEnabled
-        >
-         <SafeAreaView style={{height: 300}}>
-         <TabViewComponent
-            routes={routes}
-            containerStyle={{
-              marginTop: 20,
-              paddingHorizontal: 5,
-            }}
-          />
-         </SafeAreaView>
-          <LogTask  style={{marginTop:10,flex:1}}/>
+        <ScrollView style={{flex: 1}} nestedScrollEnabled>
+          <SafeAreaView style={{height: 300}}>
+            <TabViewComponent
+              routes={routes}
+              containerStyle={{
+                marginTop: 20,
+                paddingHorizontal: 5,
+              }}
+            />
+          </SafeAreaView>
+          <LogTask style={{marginTop: 10, flex: 1}} />
         </ScrollView>
       </View>
     </ContainerScreen>
@@ -135,8 +134,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     overflow: 'hidden',
+    width: '100%',
   },
-  title: {fontSize: 18, color: 'black', fontWeight: 'bold'},
+  title: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold',
+    flex: 1,
+    marginHorizontal:10
+  },
   label: {
     fontSize: 16,
     color: 'black',

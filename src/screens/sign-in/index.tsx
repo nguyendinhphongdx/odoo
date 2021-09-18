@@ -33,27 +33,38 @@ const LoginScreen: React.FC<PropsScreens> = ({children}) => {
   const dispatch = useDispatch();
   const handleLogin = () => {
     userService.SetLoadingApp(true,dispatch);
-    userService
-      .LoginService(
-        {db: appSettings.db, login: state.account, password: state.password},
-        dispatch,
-      )
-      .then(token => {
-        if (token) {
-          navigation.reset({
-            index: 0,
-            routes: [{name: Constant.SCREEN.TABBUTTOM}],
-          });
-          appSettings.token = token;
-          if(isSelected){
-              appSettings.rememberSave('true',state.account,state.password);
-          }else{
-            appSettings.rememberRemove();
-          }
-        }
-      })
-      .finally(() =>  userService.SetLoadingApp(false,dispatch));
-     
+    // userService
+    //   .LoginService(
+    //     {db: appSettings.db, login: state.account, password: state.password},
+    //     dispatch,
+    //   )
+    //   .then(token => {
+    //     if (token) {
+    //       navigation.reset({
+    //         index: 0,
+    //         routes: [{name: Constant.SCREEN.TABBUTTOM}],
+    //       });
+    //       appSettings.token = token;
+    //       if(isSelected){
+    //           appSettings.rememberSave('true',state.account,state.password);
+    //       }else{
+    //         appSettings.rememberRemove();
+    //       }
+    //     }
+    //   })
+    //   .finally(() =>  userService.SetLoadingApp(false,dispatch));
+    setTimeout(()=>{
+      navigation.reset({
+        index: 0,
+        routes: [{name: Constant.SCREEN.TABBUTTOM}],
+      });
+      if(isSelected){
+          appSettings.rememberSave('true',state.account,state.password);
+      }else{
+        appSettings.rememberRemove();
+      }
+      userService.SetLoadingApp(false,dispatch)
+    },3000);
   };
   useEffect(()=>{
     console.log(appSettings);

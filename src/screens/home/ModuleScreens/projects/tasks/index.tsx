@@ -20,15 +20,12 @@ const {width, height} = Dimensions.get('window');
 interface PropsScreens {}
 const TasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
   const {project} = route.params;
-  const handleNavigate = (item) => {
-   
-    
-    navigation.navigate(Constant.SCREEN.DETAILTASK, {title: project.title});
+  const handleNavigate = (item:PropsItemTask) => {
+    navigation.navigate(Constant.SCREEN.DETAILTASK, {title: project.title,task:item});
   };
   const RenderCardTask = (props: {item: PropsItemTask}) => {
     const [value, setValue] = useState(props.item.favorite ? true : false);
     return (
-     
         <View style={styles.taskCard}>
           <View style={styles.taskRow}>
             <Text style={styles.taskName}>{props.item.name}</Text>
@@ -68,9 +65,9 @@ const TasksScreen: React.FC<PropsScreens> = ({navigation, route}) => {
       <View style={{flex: 1}}>
         <Board
           boardRepository={boardRepository}
-          open={() => {}}
+          open={(item) => handleNavigate(item)}
           onDragEnd={() => {}}
-          onPress={(item) => handleNavigate(item)}
+          //onPress={(item) => handleNavigate(item)}
           cardContent={item => <RenderCardTask item={item} />}
         />
       </View>

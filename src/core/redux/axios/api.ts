@@ -25,7 +25,17 @@ class ApiService{
         keys.forEach((item,index) =>{
             formData.append(item,JSON.stringify(values[index]))
         })
+        // const formData = new FormData();
+        // const  payload = {
+        //       "fields":
+        //         "['name','partner_id','color','task_count','label_tasks','alias_id','alias_name','alias_domain','is_favorite','rating_percentage_satisfaction','rating_status','rating_active','analytic_account_id']",
+        //       "domain": "[('company_id','in',[1,2])]",
+        //       "offset": 0,
+        //     }
+        //   formData.append('payload',JSON.stringify(payload))
         const request = axios({
+            //method: 'GET',
+            //url:'http://192.168.1.55:5050/student/add_student',
             method: method,
             url: `${appSettings.domainServer}${endpoint}`,
             data: formData,
@@ -36,7 +46,7 @@ class ApiService{
             },
             timeout: 15000
         })
-        console.log(formData);
+        console.log(request);
         return request;
     }
 }

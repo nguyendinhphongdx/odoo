@@ -122,12 +122,12 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
       </View>
     );
   };
-  const ScrollToBottom = ()=>{
-    ref.current?.scrollToEnd()
-  }
+  const ScrollToBottom = () => {
+    ref.current?.scrollToEnd();
+  };
   React.useEffect(() => {
     messageMock = dataMessage;
-    setTimeout(ScrollToBottom,1000);
+    setTimeout(ScrollToBottom, 1000);
   }, []);
   return (
     <ContainerScreen
@@ -136,16 +136,13 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
       <HeaderScreen
         title={message.name}
         goBack={true}
-        iconRight={
-          <Icon name="info-circle" size={25} color="blue" />
-        }
+        iconRight={<Icon name="info-circle" size={25} color="blue" />}
       />
-      <View style={{flex: 1, backgroundColor: 'red'}}>
+      <View style={{flex: 1}}>
         <View
           style={{
-            flex:1,
+            flex: 1,
             backgroundColor: 'rgba(255,255,255,1)',
-            paddingBottom: 50,
           }}>
           <FlatList
             ref={ref}
@@ -158,17 +155,18 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
               flexDirection: 'column',
               justifyContent: 'flex-end',
             }}
-            onLayout={()=>ScrollToBottom()}
+            onLayout={() => ScrollToBottom()}
           />
         </View>
         <View
           style={{
-            height: 50,
+            minHeight: 50,
+            maxHeight:80,
             borderTopWidth: 1,
             flexDirection: 'row',
             justifyContent: 'center',
             borderColor: 'gray',
-            position: 'absolute',
+            // position: 'absolute',
             width: width,
             bottom: 0,
           }}>
@@ -180,6 +178,7 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
           </Animated.View>
           <View style={{flex: 1}}>
             <TextInputCtrl
+              multiline={true}
               value={text}
               onChangeText={(text: string) => setText(text)}
               placeholder={'Aa'}
@@ -188,10 +187,9 @@ const ChatScreen: React.FC<PropsScreens> = ({route, children}) => {
               iconRight={
                 <TouchableOpacity
                   style={{
-                    width: 25,
-                    height: 20,
-                    position: 'absolute',
-                    bottom: 5,
+                    width: 25,   
+                    position:'absolute',
+                    bottom: 10,
                     right: 15,
                   }}
                   onPress={hendleSendMessage}>
@@ -246,14 +244,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    marginHorizontal: 5,
-    height: 32,
+    margin: 5,
     paddingVertical: 5,
     paddingRight: 40,
     backgroundColor: 'rgba(0,0,0,.1)',
     borderRadius: 15,
     color: 'black',
     borderWidth: 0,
+    minHeight:32
   },
   container: {},
   inner: {

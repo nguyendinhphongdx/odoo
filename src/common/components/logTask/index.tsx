@@ -56,8 +56,8 @@ const ContentLog: React.FC<{}> = () => {
       </View>
     );
   };
-  const Render = ListItemLogs.map(item => {
-    return <RowLogs item={item} />;
+  const Render = ListItemLogs.map((item,index) => {
+    return <RowLogs item={item} key={index}/>;
   });
   return (
     <View style={{height: '100%'}}>

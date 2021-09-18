@@ -2,7 +2,7 @@ import { ConstantProject } from "../constant";
 
 class ProjectActions{
 
-    Login = (projects: Array<any>)=> {
+    Get_All_Project = (projects: Array<any>)=> {
         return {
             type: ConstantProject.GET_ALL_PROJECT,
             payload: projects

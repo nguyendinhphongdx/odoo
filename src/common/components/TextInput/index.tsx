@@ -13,7 +13,8 @@ interface PropsTextInput {
   iconRight?:any;
   style?:ViewStyle;
   placeholderTextColor?:string;
-  focus?:(isFocus:boolean) => void
+  focus?:(isFocus:boolean) => void;
+  multiline?:boolean
 }
 const TextInputCtrl = ({...props}: PropsTextInput) => {
   const handleFocus = (e:NativeSyntheticEvent<TextInputFocusEventData>)=>{
@@ -39,6 +40,8 @@ const TextInputCtrl = ({...props}: PropsTextInput) => {
           color: 'white',
           ...props.style
         }}
+        multiline={props.multiline?true:false}
+
         secureTextEntry={props.show}
         onFocus={handleFocus}
         onChangeText={(text: string) => props.onChangeText(text)}

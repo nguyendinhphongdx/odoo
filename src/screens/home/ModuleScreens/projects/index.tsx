@@ -18,13 +18,13 @@ import HeaderScreen from '../../../../common/components/headerScreen';
 import StarButton from '../../../../common/components/starFav';
 import Constant from '../../../../config/Constant';
 import projectService from '../../../../core/redux/services/projectService';
-import { PropsItemProject} from '../../mock/data';
+import { ListProject,PropsItemProject} from '../../mock/data';
 const {width, height} = Dimensions.get('window');
 interface PropsScreens {}
 const ProjectScreen: React.FC<PropsScreens> = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const ListProject:Array<PropsItemProject> = useSelector((state:any)=> state.Project.project);
+  // const ListProject:Array<PropsItemProject> = useSelector((state:any)=> state.Project.project);
   const [projectSelected, setProjectSelected] =
     useState<null | PropsItemProject>(null);
   const [isVisible, setIsVisible] = useState(false);
